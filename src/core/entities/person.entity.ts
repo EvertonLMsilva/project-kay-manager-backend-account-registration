@@ -3,9 +3,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  JoinColumn,
   OneToOne,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -13,9 +11,8 @@ import { Profile } from './profile.entity';
 
 @Entity()
 export class Person {
-  @PrimaryGeneratedColumn()
-  @PrimaryColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   name: string;

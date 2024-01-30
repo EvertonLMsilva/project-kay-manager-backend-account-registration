@@ -4,7 +4,6 @@ import {
   DeleteDateColumn,
   Entity,
   OneToOne,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -12,9 +11,8 @@ import { Profile } from './profile.entity';
 
 @Entity()
 export class ConfigurationProfile {
-  @PrimaryGeneratedColumn()
-  @PrimaryColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   theme: string;

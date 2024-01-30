@@ -42,6 +42,7 @@ export class ProfileService {
         throw new BadRequestException('Error on create profile!');
 
       const createProfile = await this.profileRepository.save({
+        userId: createProfileDto?.userId,
         person: createPerson,
         configurationProfile: createConfiguration,
       });

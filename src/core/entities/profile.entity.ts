@@ -1,10 +1,10 @@
 import {
+  Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -13,8 +13,11 @@ import { ConfigurationProfile } from './ConfigurationProfile.entity';
 
 @Entity()
 export class Profile {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ type: 'uuid' })
+  userId: string;
 
   @OneToOne(() => Person, (person) => person.profile)
   @JoinColumn()
