@@ -69,7 +69,7 @@ export class ProfileService {
   }
 
   update(id: number, updateProfileDto: UpdateProfileDto) {
-    return `This action updates a #${id} profile`;
+    return `This action updates a #${id} profile ${updateProfileDto}`;
   }
 
   remove(id: number) {

@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  nginx:
+    container_name: account-registration-nginx
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - ${NGINX_PORT}:${NGINX_PORT}
+    expose:
+      - ${NGINX_PORT}
+    links:
+      - app
+    depends_on: 
+      - app
+    networks:
+      - account-registration-network
+
+  app:
+    container_name: account-registration-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: sh -c 'npm i && npm run start:dev'
+    environment:
+      NGINX_PORT: ${NGINX_PORT}
+      POSTGRES_HOST: db
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    volumes:
+      - .:/app/
+    depends_on: 
+      - db
+    networks:
+      - account-registration-network
+
+  db:
+    container_name: account-registration-db
+    image: postgres
+    restart: always
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+    networks:
+      - account-registration-network
+
+  adminer:
+    container_name: account-registration-adminer
+    image: adminer
+    restart: always
+    ports:
+      - ${ADMINER_PORT}:${ADMINER_PORT}
+    depends_on: 
+      - db
+    networks:
+      - account-registration-network
+
+networks:
+  account-registration-network:
+    name: account-registration-network
+    external: true
