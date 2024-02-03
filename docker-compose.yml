@@ -8,7 +8,7 @@ services:
       context: .
       dockerfile: Dockerfile.nginx
     ports:
-      - ${NGINX_PORT}:${NGINX_PORT}
+      - ${NGINX_PORT}:8080
     expose:
       - ${NGINX_PORT}
     links:
@@ -19,14 +19,11 @@ services:
       - account-registration-network
 
   app:
-    container_name: account-registration-api
+    container_name: account-registration-app
     build:
       context: .
       dockerfile: Dockerfile
     entrypoint: sh -c 'npm i && npm run start:dev'
-    environment:
-      NGINX_PORT: ${NGINX_PORT}
-      POSTGRES_HOST: db
     ports:
       - ${APP_PORT}:${APP_PORT}
     volumes:
@@ -40,8 +37,6 @@ services:
     container_name: account-registration-db
     image: postgres
     restart: always
-    ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -55,7 +50,7 @@ services:
     image: adminer
     restart: always
     ports:
-      - ${ADMINER_PORT}:${ADMINER_PORT}
+      - ${ADMINER_PORT}:8080
     depends_on: 
       - db
     networks:
