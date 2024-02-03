@@ -10,6 +10,6 @@ COPY . .
 
 RUN npm install --frozen-lockfile
 
-EXPOSE 5000
+EXPOSE 3000
 
-CMD [ "npm", "start:dev" ]
+CMD [ "npm", "start:prod" ]
