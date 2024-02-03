@@ -59,4 +59,5 @@ services:
 networks:
   account-registration-network:
     name: account-registration-network
-    external: true
+    external: false
+    driver: bridge

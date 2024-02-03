@@ -17,8 +17,6 @@ export class ProfileController {
 
   @Post()
   create(@Body() createProfileDto: CreateProfileDto) {
-    console.log(createProfileDto);
-
     return this.profileService.create(createProfileDto);
   }
 
