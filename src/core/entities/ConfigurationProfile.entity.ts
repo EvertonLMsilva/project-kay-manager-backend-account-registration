@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Profile } from './profile.entity';
+import { StatusModel } from '../enums/StatusModel.enum';
 
 @Entity()
 export class ConfigurationProfile {
@@ -16,6 +17,9 @@ export class ConfigurationProfile {
 
   @Column()
   theme: string;
+
+  @Column({ default: StatusModel.ACTIVE })
+  status: StatusModel;
 
   @OneToOne(() => Profile, (profile) => profile.configurationProfile)
   profile: Profile;

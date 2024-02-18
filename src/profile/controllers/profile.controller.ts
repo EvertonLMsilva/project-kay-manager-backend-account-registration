@@ -10,10 +10,12 @@ import {
 import { ProfileService } from '../services/profile.service';
 import { CreateProfileDto } from '../../core/dto/create-profile.dto';
 import { UpdateProfileDto } from '../../core/dto/update-profile.dto';
+import { ApiHeader, ApiHeaders, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('profile')
 @Controller('profile')
 export class ProfileController {
-  constructor(private readonly profileService: ProfileService) {}
+  constructor(private readonly profileService: ProfileService) { }
 
   @Post()
   create(@Body() createProfileDto: CreateProfileDto) {

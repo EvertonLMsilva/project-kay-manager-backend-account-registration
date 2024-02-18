@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { Person } from './person.entity';
 import { ConfigurationProfile } from './ConfigurationProfile.entity';
+import { StatusModel } from '../enums/StatusModel.enum';
 
 @Entity()
 export class Profile {
@@ -23,10 +24,14 @@ export class Profile {
   @JoinColumn()
   person: Person;
 
+  @Column({ default: StatusModel.ACTIVE })
+  status: StatusModel;
+
   @OneToOne(
     () => ConfigurationProfile,
     (configurationProfile) => configurationProfile.profile,
   )
+
   @JoinColumn()
   configurationProfile: ConfigurationProfile;
 

@@ -27,3 +27,35 @@ export const validateCPF = (cpf: string): boolean => {
   }
   return true;
 };
+
+
+export const validarEAN13 = (barcode: string) => {
+  // Verificar se o código fornecido tem 13 dígitos
+  if (barcode.length !== 13 || !/^\d{13}$/.test(barcode)) {
+    return {
+      message: "Invalid: Barcode must be 13 digits long.",
+      done: false
+    };
+  }
+
+  // Calcular dígito de verificação
+  var soma = 0;
+  for (var i = 0; i < 12; i++) {
+    soma += parseInt(barcode[i]) * (i % 2 === 0 ? 1 : 3);
+  }
+  var digitoVerificadorCalculado = (10 - (soma % 10)) % 10;
+  var digitoVerificador = parseInt(barcode[12]);
+
+  // Verificar se o dígito de verificação fornecido é igual ao dígito calculado
+  if (digitoVerificador === digitoVerificadorCalculado) {
+    return {
+      message: "",
+      done: true
+    };
+  } else {
+    return {
+      message: "Invalid: the check digit does not match.",
+      done: false
+    };
+  }
+}
